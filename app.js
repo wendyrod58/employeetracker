@@ -41,7 +41,7 @@ function init() {
                         }
                     );
                     break;
-                    
+
                 case "view all roles":
                     console.log("view all roles...");
                     connection.query(
