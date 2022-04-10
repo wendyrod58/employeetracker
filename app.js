@@ -102,6 +102,11 @@ function init() {
                     console.log("add a role");
                     inquirer.prompt([
                         {
+                            name: "id",
+                            type: 'input',
+                            message: "What's the ID of the role?"
+                        },
+                        {
                             name: "title",
                             type: 'input',
                             message: "What is the name of the role?"
@@ -119,10 +124,54 @@ function init() {
                     ]).then(response => {
 
                         connection.query(
-                            `INSERT INTO role(title, salary, department_id) VALUES ('${response.title}', ${response.salary}, ${response.department_id})`,
+                            `INSERT INTO role(id, title, salary, department_id) VALUES ('${response.id}','${response.title}', ${response.salary}, ${response.department_id})`,
                             function (err, results, fields) {
                                 console.log(err);
                                 console.log("Added " + response.title + " succesfully");
+                                //ask question again 
+                                inquirer
+                                    .prompt(managerQuestions)
+                            }
+                        );
+                    })
+
+                    break;
+
+                    case "add an employee":
+                    console.log("add a employee");
+                    inquirer.prompt([
+                        {
+                            name: "id",
+                            type: 'input',
+                            message: "What is the ID?"
+                        },
+                        {
+                            name: "first_name",
+                            type: 'input',
+                            message: "What is employee's first name?"
+                        },
+                        {
+                            name: "last_name",
+                            type: 'input',
+                            message: "What is employee's last name?"
+                        },
+                        {
+                            name: "role",
+                            type: 'input',
+                            message: "Please enter role:"
+                        },
+                        {
+                            name: "manager",
+                            type: 'input',
+                            message: "Who is the employee's manager?"
+                        }
+                    ]).then(response => {
+
+                        connection.query(
+                            `INSERT INTO role(id, first_name, last_name, role, manager) VALUES ('${response.name}', ${response.lastName}, ${response.role}, ${response.manager})`,
+                            function (err, results, fields) {
+                                console.log(err);
+                                console.log("Added " + response.name + " succesfully");
                                 //ask question again 
                                 inquirer
                                     .prompt(managerQuestions)
